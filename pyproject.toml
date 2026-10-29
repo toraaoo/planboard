@@ -1,0 +1,76 @@
+[project]
+name = "planboard"
+version = "0.1.0"
+description = "Implementation plans as JSON, rendered as a document, a kanban board and a dependency graph."
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{ name = "laww", email = "lawrenceallen.tech@gmail.com" }]
+requires-python = ">=3.13"
+keywords = ["planning", "kanban", "cli", "json", "mermaid", "project-management"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Environment :: Console",
+  "Environment :: Web Environment",
+  "Intended Audience :: Developers",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: 3.14",
+  "Topic :: Software Development",
+  "Topic :: Software Development :: Documentation",
+  "Typing :: Typed",
+]
+dependencies = [
+  "platformdirs>=4.3,<5",
+  "pydantic>=2.14,<3",
+  "rich>=14,<15",
+  "typer>=0.27,<1",  # vendored click: cli/shared.py imports typer._click
+]
+
+[project.scripts]
+planboard = "planboard.adapters.cli.app:main"
+
+[dependency-groups]
+dev = [
+  "pyright>=1.1.414",
+  "pytest>=9.1.1",
+  "ruff>=0.17.2",
+]
+
+[build-system]
+requires = ["hatchling>=1.27"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build]
+# Built by hatch_build.py and gitignored, so list it explicitly.
+artifacts = ["src/planboard/adapters/web/static/"]
+
+[tool.hatch.build.targets.sdist]
+only-include = ["src", "hatch_build.py"]
+
+[tool.hatch.build.targets.sdist.hooks.custom]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/planboard"]
+
+[tool.hatch.build.targets.wheel.hooks.custom]
+
+[tool.ruff]
+line-length = 88
+target-version = "py313"
+src = ["src"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "SIM", "RUF"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+addopts = ["--import-mode=importlib", "--strict-markers"]
+
+[tool.pyright]
+include = ["src", "tests"]
+pythonVersion = "3.13"
+typeCheckingMode = "strict"

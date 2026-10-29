@@ -1,0 +1,90 @@
+{
+  "title": "",
+  "summary": "One paragraph: what this builds and why, in terms a reviewer recognises.",
+  "status": "draft",
+  "tags": [],
+  "dependsOn": [],
+  "diagrams": {
+    "request-flow": {
+      "alt": "Request flow from client to database.",
+      "source": "flowchart LR\n  client --> api --> db[(database)]"
+    },
+    "data-model": {
+      "alt": "Entity relationships of the new tables.",
+      "source": "erDiagram\n  parents ||--o{ children : has\n  children {\n    uuid id PK\n    uuid parentId FK\n    text name\n  }"
+    }
+  },
+  "sections": [
+    {
+      "id": "context",
+      "title": "Context",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "What exists today, what is missing, and what this plan changes."
+        }
+      ]
+    },
+    {
+      "id": "decisions",
+      "title": "Decisions",
+      "blocks": [
+        {
+          "type": "table",
+          "columns": ["Topic", "Decision"],
+          "rows": [["Topic", "The decision and the reason for it."]]
+        }
+      ]
+    },
+    {
+      "id": "design",
+      "title": "Design",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Link to any section or diagram by id, like [the request flow](#request-flow)."
+        },
+        {
+          "type": "diagram",
+          "ref": "#request-flow",
+          "caption": "Replace with the flow this plan introduces. Long diagrams read better from a file: planboard diagram add writes one to diagrams/<id>.mmd."
+        },
+        {
+          "type": "diagram",
+          "ref": "#data-model",
+          "caption": "Replace with the tables this plan adds or changes."
+        }
+      ]
+    },
+    {
+      "id": "risks",
+      "title": "Risks and mitigations",
+      "blocks": [
+        {
+          "type": "table",
+          "columns": ["Risk", "Mitigation"],
+          "rows": [["What could go wrong.", "How the design prevents it."]]
+        }
+      ]
+    },
+    {
+      "id": "tests",
+      "title": "Tests",
+      "blocks": [
+        {
+          "type": "list",
+          "items": ["Unit: the behaviour each pure function guarantees."]
+        }
+      ]
+    }
+  ],
+  "tasks": [
+    {
+      "id": "first-step",
+      "title": "First step",
+      "summary": "The smallest change that compiles, passes its tests and moves the plan forward.",
+      "sections": ["design"],
+      "diagrams": ["request-flow"]
+    }
+  ]
+}
